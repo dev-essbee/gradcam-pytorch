@@ -1,2 +1,5 @@
 exp.ipynb
 outputs/*
+__pycache__
+.vscode
+.DS_Store
