@@ -1,0 +1,17 @@
+{
+    "Resnet 18": {
+        "description": "ResNet-18, the shallowest with 18 layers, offers faster processing and is ideal for applications with limited computational resources or where real-time performance is critical.",
+        "layer_name":"layer4",
+        "url":"resnet18"
+    },
+    "Resnet 34": {
+        "description": "ResNet-34, a mid-depth model with 34 layers, strikes a balance between computational efficiency and accuracy, commonly used in scenarios where moderate complexity and speed are required.",
+        "layer_name":"layer4",
+        "url":"resnet34"
+    },
+    "Resnet 152": {
+        "description": "ResNet-152 is a deep residual network with 152 layers, known for its high performance in image recognition tasks due to its extensive depth, making it suitable for complex image classification. ",
+        "layer_name":"layer4",
+        "url":"resnet152"
+    }
+}
