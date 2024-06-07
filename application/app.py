@@ -1,11 +1,8 @@
 import streamlit as st
 from loader import load_model, preprocess_image, display_grad_cam,load_model_image, get_grad_cam, get_model_description, plot_colormap_legend
-from button import create_button
 from PIL import Image
-
 import streamlit as st
 
-st.markdown(create_button(), unsafe_allow_html=True)
 
 st.title('Object Detection Explained')
 with st.expander("About the Application"):
