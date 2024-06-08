@@ -3,5 +3,10 @@ numpy==1.26.4
 opencv-python-headless==4.10.0.82
 Pillow==10.3.0
 streamlit==1.35.0
-torch
-torchvision
+torch==2.0.0
+torchvision==0.10.1
+
+
+# image handle, eroor handle type of image specify
+# model load parameters
+# add what models can detect
