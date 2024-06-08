@@ -3,3 +3,4 @@ outputs/*
 __pycache__
 .vscode
 .DS_Store
+todo.md

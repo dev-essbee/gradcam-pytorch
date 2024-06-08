@@ -17,10 +17,11 @@ In this app, you can upload an image and discover which areas influenced the mod
 
 with st.expander("Instructions"):
     st.write("""
-        1. Select the model that you want to test from the sidebar.
-        2. Upload an image to perform object detection and model explanation.
-        3. Once the image has been processed you can see what features the neural network considered to detect the object in the image.
-        4. Review the feature usage heatmap for better understanding of the colormap distribution.
+        1. Go to the sidebar and pick the model you want to test.
+        2. Upload an image you want to analyze.
+        3. The app will show what objects are in the image.
+        4. It will also highlight the parts of the image that helped in detecting the objects using a heatmap.
+        4. Check the "Feature Usage Colormap" in the sidebar to understand the heatmap better.
     """)
 about_model=get_model_description()
 st.sidebar.subheader('Select a Model')
@@ -30,33 +31,36 @@ add_selectbox = st.sidebar.selectbox('Models available',
 st.sidebar.divider()
 st.sidebar.subheader('Model Description')
 model_details=about_model[add_selectbox]
-model, classes, layer_name = load_model(model_details['url'], model_details['layer_name'], model_details['weights'])
 st.sidebar.markdown(about_model[add_selectbox]['description'])
-
-
-original_image=st.file_uploader(label='Upload an image')
-
-original, processed=st.columns(spec=[0.5,0.5])
-
-if original_image is not None:
-    original_image = Image.open(original_image)
-    with st.spinner("Processing..."):
-        with original:
-            st.subheader('Image')
-            st.image(original_image, use_column_width=True)
-            classes_score=load_model_image(model,original_image, classes)
-            processed_image=preprocess_image(original_image)
-            display_image = preprocess_image(original_image, display=True)
-            grad_cams, values, indices=get_grad_cam(model, processed_image, layer_name=layer_name)
-        with processed:
-                st.subheader('Result')
-                heatmap_img=display_grad_cam(grad_cams, display_image)
-                st.image(heatmap_img)
-                st.text(f'Identification: {classes_score[0][1]}')
-                
 st.sidebar.divider()
 st.sidebar.subheader("Feature usage")
 st.sidebar.pyplot(plot_colormap_legend())
 st.sidebar.markdown("<div style='display: flex; justify-content: space-between;'><span>Low</span><span>High</span></div>", unsafe_allow_html=True)
+
+try:
+    model, classes, layer_name = load_model(model_details['url'], model_details['layer_name'], model_details['weights'])
+except Exception:
+    error=RuntimeError('Unable to load model, please try again later')
+    st.exception(error)
+else:
+    original_image=st.file_uploader(label='Upload an image',type=["jpg", "jpeg","png","webp","bmp","heic"])
+
+    original, processed=st.columns(spec=[0.5,0.5])
+
+    if original_image is not None:
+        original_image = Image.open(original_image)
+        with st.spinner("Processing..."):
+            with original:
+                st.subheader('Image')
+                st.image(original_image, use_column_width=True)
+                classes_score=load_model_image(model,original_image, classes)
+                processed_image=preprocess_image(original_image)
+                display_image = preprocess_image(original_image, display=True)
+                grad_cams, values, indices=get_grad_cam(model, processed_image, layer_name=layer_name)
+            with processed:
+                    st.subheader('Result')
+                    heatmap_img=display_grad_cam(grad_cams, display_image)
+                    st.image(heatmap_img)
+                    st.text(f'Identification: {classes_score[0][1]}')
 
 
