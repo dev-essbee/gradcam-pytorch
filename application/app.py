@@ -29,7 +29,8 @@ add_selectbox = st.sidebar.selectbox('Models available',
 )
 st.sidebar.divider()
 st.sidebar.subheader('Model Description')
-model, classes, layer_name = load_model(about_model[add_selectbox]['url'], about_model[add_selectbox]['layer_name'])
+model_details=about_model[add_selectbox]
+model, classes, layer_name = load_model(model_details['url'], model_details['layer_name'], model_details['weights'])
 st.sidebar.markdown(about_model[add_selectbox]['description'])
 
 

@@ -15,8 +15,8 @@ def get_model_description():
         about_model=json.load(f)
     return about_model
 
-def load_model(url, layer_name):
-    model = torch.hub.load('pytorch/vision:v0.10.0', url, pretrained=True)
+def load_model(url, layer_name, weight):
+    model = torch.hub.load('pytorch/vision:v0.10.0', url, weights=weight)
     model.eval()
     classes = pickle.load(urllib.request.urlopen('https://gist.githubusercontent.com/yrevar/6135f1bd8dcf2e0cc683/raw/d133d61a09d7e5a3b36b8c111a8dd5c4b5d560ee/imagenet1000_clsid_to_human.pkl'))
     return model, classes, layer_name
