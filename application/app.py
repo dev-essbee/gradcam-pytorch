@@ -4,15 +4,18 @@ from PIL import Image
 import streamlit as st
 
 st.set_page_config(
-    page_title="Object Detection Explained",  
-    page_icon=":camera:",  
-    layout="centered",  
-    initial_sidebar_state="expanded", 
+    page_title="Object Detection Explained",
+    page_icon="🧠",
+    layout="centered",
+    initial_sidebar_state="expanded"
 )
 
 st.markdown(
     """
-    <meta name="description" content="An app for object detection and model explanation. Upload an image to see detected objects and understand the model's decision-making with a heatmap.">
+    <head>
+        <meta name="description" content="An app for object detection and model explanation. Upload an image to see detected objects and understand the model's decision-making with a heatmap.">
+        <link rel="icon" href="🧠">
+    </head>
     """,
     unsafe_allow_html=True
 )
