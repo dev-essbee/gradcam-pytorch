@@ -53,14 +53,15 @@ st.sidebar.subheader("Feature usage")
 st.sidebar.pyplot(plot_colormap_legend())
 st.sidebar.markdown("<div style='display: flex; justify-content: space-between;'><span>Low</span><span>High</span></div>", unsafe_allow_html=True)
 
+
+original_image=st.file_uploader(label='Upload an image',type=["jpg", "jpeg","png","webp","bmp","heic"])
+
 try:
     model, classes, layer_name = load_model(model_details['url'], model_details['layer_name'], model_details['weights'])
 except Exception:
     error=RuntimeError('Unable to load model, please try again later')
     st.exception(error)
 else:
-    original_image=st.file_uploader(label='Upload an image',type=["jpg", "jpeg","png","webp","bmp","heic"])
-
     original, processed=st.columns(spec=[0.5,0.5])
 
     if original_image is not None:

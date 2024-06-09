@@ -1,4 +1,4 @@
-from torchvision import transforms, models
+from torchvision import transforms
 import torch
 import pickle
 import urllib.request
@@ -9,12 +9,14 @@ from gradcam_algo import GradCAM
 import torch
 import json
 import matplotlib.pyplot as plt
+import streamlit as st
 
 def get_model_description():
     with open('application/model_description.json','r') as f:
         about_model=json.load(f)
     return about_model
 
+@st.cache_resource(show_spinner="Loading the model...")
 def load_model(url, layer_name, weight):
     model = torch.hub.load('pytorch/vision:v0.18.0', url, weights=weight)
     model.eval()
